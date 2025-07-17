@@ -1,0 +1,9 @@
+.git
+__pycache__/
+*.log
+*.pt
+*.ckpt
+*.onnx
+data/
+k8s/
+notes/
