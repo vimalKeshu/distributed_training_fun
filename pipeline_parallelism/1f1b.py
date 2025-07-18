@@ -126,53 +126,6 @@ class TransformerBlock(nn.Module):
         mask = torch.triu(torch.ones(seq_len, seq_len, device=device), diagonal=1)
         return mask.bool()
 
-    # def forward(self, 
-    #             x: torch.Tensor, 
-    #             attn_mask: Optional[torch.Tensor] = None,
-    #             key_padding_mask: Optional[torch.Tensor] = None,
-    #             is_causal: bool = False) -> torch.Tensor:
-
-    #     logger.info(f"Rank {self.rank}: Entering TransformerBlock, x.shape={x.shape}, dtype={x.dtype}")
-    #     _, seq_len, _ = x.shape
-        
-    #     logger.info(f"Rank {self.rank}: entered norm1")
-    #     normed_x = self.norm1(x)
-    #     logger.info(f"Rank {self.rank}: norm1 done")
-
-    #     if is_causal and attn_mask is None:
-    #         attn_mask = self.create_causal_mask(seq_len, x.device)
-    #         logger.info(f"Rank {self.rank}: Causal mask created: shape={attn_mask.shape}")
-
-    #     logger.info(f"Rank {self.rank}: Calling attention with attn_mask shape={attn_mask.shape if attn_mask is not None else None}")
-
-    #     # normed_x = normed_x.contiguous()
-
-    #     attn_out, _ = self.attention(
-    #         query=normed_x,
-    #         key=normed_x, 
-    #         value=normed_x,
-    #         attn_mask=attn_mask,
-    #         key_padding_mask=key_padding_mask,
-    #         need_weights=False,
-    #         is_causal=is_causal
-    #     )
-
-    #     logger.info(f"Rank {self.rank}: attention done")
-    #     x = x + self.attention_dropout(attn_out)
-    #     logger.info(f"Rank {self.rank}: attention dropout and residual done")
-
-    #     normed_x = self.norm2(x)
-    #     logger.info(f"Rank {self.rank}: norm2 done")
-
-    #     ffn_out = self.ffn(normed_x)
-    #     logger.info(f"Rank {self.rank}: ffn done")
-
-    #     x = x + ffn_out
-    #     logger.info(f"Rank {self.rank}: TransformerBlock forward completed")
-
-    #     return x
-
-
     def forward(self, 
                 x: torch.Tensor, 
                 attn_mask: Optional[torch.Tensor] = None,
