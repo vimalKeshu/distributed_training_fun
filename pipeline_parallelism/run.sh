@@ -33,7 +33,6 @@ export TORCH_NCCL_ASYNC_ERROR_HANDLING=1
 torchrun \
   --nnodes=$NNODES \
   --nproc-per-node=$NPROC_PER_NODE \
-  --node-rank=$RANK \
   --master-addr=$MASTER_ADDR \
   --master-port=$MASTER_PORT \
   /app/1f1b.py \

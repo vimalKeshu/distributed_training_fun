@@ -424,14 +424,6 @@ class Pipeline1F1BTrainer:
             if send_req:
                 self.pending_forward_ops[f'send_{micro_batch_id}'] = (send_req, output)
 
-        # Pre-post receive for future forward step
-        future_step = micro_batch_id + self.world_size
-        if (future_step < self.micro_batch_size and self.rank > 0 and future_step not in self.pending_forward_ops):
-            buf = self.fwd_recv_pool[future_step % self.pool]
-            recv_req, recv_tensor = self.comm_handler.async_recv_forward(buf, future_step)
-            if recv_req:
-                self.pending_forward_ops[future_step] = (recv_req, recv_tensor)
-
         self.stats['communication_time'] += time.time() - comm_start
         self.stats['forward_steps'] += 1
         logger.info(f"Rank {self.rank}: forward_step for a microbatch id: {micro_batch_id} communication ended...") 
@@ -497,14 +489,6 @@ class Pipeline1F1BTrainer:
             send_req, _ = self.comm_handler.async_send_backward(grad_input, micro_batch_id)
             if send_req:
                 self.pending_backward_ops[f"send_{micro_batch_id}"] = (send_req, grad_input)
-
-        # Pre-post receive for future backward step
-        future_step = micro_batch_id + self.world_size
-        if (future_step < self.micro_batch_size and self.rank < self.world_size - 1 and future_step not in self.pending_backward_ops):        
-            buf = self.bwd_recv_pool[future_step % self.pool]
-            recv_req, recv_grad = self.comm_handler.async_recv_backward(buf, future_step)
-            if recv_req:
-                self.pending_backward_ops[future_step] = (recv_req, recv_grad)
         
         self.stats['communication_time'] += time.time() - comm_start
 
@@ -568,7 +552,7 @@ class Pipeline1F1BTrainer:
         # Phase 3: cool down (remaining backwards only) 
         for i in range(num_warmup):
             backward_step_id = num_steady + i
-            logger.info(f"Rank {self.rank}: Phase 3: cool down (remaining backwards only) {forward_step_id}")
+            logger.info(f"Rank {self.rank}: Phase 3: cool down (remaining backwards only) {backward_step_id}")
             target_data = target_micro_batches[backward_step_id] if target_micro_batches and self.rank == self.world_size - 1 else None
             self.backward_step(backward_step_id, target_data)
         
@@ -737,7 +721,7 @@ def main():
     # Model arguments
     parser.add_argument('--vocab-size', type=int, default=1000, help='Vocabulary size')
     parser.add_argument('--d-model', type=int, default=128, help='Model dimension')
-    parser.add_argument('--n-layers', type=int, default=32, help='Number of transformer layers')
+    parser.add_argument('--n-layers', type=int, default=48, help='Number of transformer layers')
     parser.add_argument('--n-heads', type=int, default=8, help='Number of attention heads')
     parser.add_argument('--d-ff', type=int, default=512, help='Feed-forward dimension')
     parser.add_argument('--seq-len', type=int, default=16, help='Sequence length')
