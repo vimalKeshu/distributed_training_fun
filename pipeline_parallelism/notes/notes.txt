@@ -128,3 +128,8 @@ torchrun \
                 # - Communication can happen while other stages compute
         
         logger.info(f"Rank {self.rank}: Pre-post initial receives for better communication-computation overlap ended...")  
+
+In the DualPipe paper:
+F → the forward computation of a layer (from input to output)
+B → the backward computation that propagates gradients w.r.t. activations (inputs)
+W → the backward computation that accumulates gradients w.r.t. parameters (weights & biases)        
