@@ -1,5 +1,8 @@
 """
-1f1b pipeline parallelism with read data with toy model !
+1f1b_v1
+    -> 1f1b pipeline parallelism demonstration.
+    -> toy model.
+    -> dummy data. 
 """
 import logging 
 import os 
@@ -7,12 +10,7 @@ import time
 import sys
 import argparse
 import signal
-import requests
-import numpy as np
 
-from transformers import  GPT2Tokenizer
-from pathlib import Path
-from transformers import  GPT2Tokenizer
 
 import torch
 import torch.nn as nn
@@ -24,59 +22,6 @@ from datetime import timedelta
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-def get_gpt2_tokenizer(args):
-    tokenizer:GPT2Tokenizer = GPT2Tokenizer.from_pretrained(
-        pretrained_model_name_or_path="openai-community/gpt2",
-        model_max_length=args.seq_len,
-        pad_token='[PAD]')
-    return tokenizer
-
-def download_and_prepare_data(args):
-    # download the tiny shakespeare dataset
-    input_file_path = args.output_file_name
-    tokenizer:GPT2Tokenizer = get_gpt2_tokenizer(args)
-    print(tokenizer.model_max_length)
-
-    if not Path(input_file_path).exists():
-        data_url = args.data_url
-        with open(input_file_path, 'w', encoding='utf-8') as f:
-            f.write(requests.get(data_url).text)
-
-        data=''
-        with open(input_file_path, 'r', encoding='utf-8') as f:
-            for line in f.readlines():
-                if len(line.rstrip())>0:
-                    data += ' ' + line    
-        
-        print(data)
-        n = len(data)
-        train_split = int(n*0.9)
-        train_data = data[:train_split]
-        test_data = data[train_split:]    
-
-        train_ids = tokenizer.encode(train_data)
-        test_ids = tokenizer.encode(test_data)
-        print(f"train has {len(train_ids):,} tokens")
-        print(f"test has {len(test_ids):,} tokens")
-
-        # export to bin files
-        train_ids = np.array(train_ids, dtype=np.uint16)
-        test_ids = np.array(test_ids, dtype=np.uint16)
-        train_ids.tofile('train.bin')
-        test_ids.tofile('test.bin')
-        # train has 292,080 tokens
-        # test has 34,806 tokens
-
-def get_batch(seq_len, batch_size, device, split = 'train'):
-    if split == 'train':
-        data = np.memmap('train.bin', dtype=np.uint16, mode='r')
-    else:
-        data = np.memmap('test.bin', dtype=np.uint16, mode='r')
-    ix = torch.randint(len(data) - seq_len, (batch_size,))
-    x = torch.stack([torch.from_numpy((data[i:i+seq_len]).astype(np.int64)) for i in ix]).to(device=device)
-    y = torch.stack([torch.from_numpy((data[i+1:i+1+seq_len]).astype(np.int64)) for i in ix]).to(device=device)
-    return x, y
 
 class AsyncCommHandler:
     """Handles async NCCL communications for pipeline parallelism"""
@@ -184,8 +129,9 @@ class TransformerBlock(nn.Module):
 
     def create_causal_mask(self, seq_len: int, device: torch.device) -> torch.Tensor:
         """Create a causal (lower triangular) mask for autoregressive attention"""
-        mask = torch.triu(torch.ones((1, seq_len, seq_len)), diagonal=1).type(torch.int)
-        return mask==0
+        mask = torch.triu(torch.ones(seq_len, seq_len, device=device), diagonal=1)
+        return mask.bool()
+
     def forward(self, 
                 x: torch.Tensor, 
                 attn_mask: Optional[torch.Tensor] = None,
@@ -516,7 +462,7 @@ class Pipeline1F1BTrainer:
             output_flat = output_tensor.view(-1, output_tensor.size(-1))
             targets_flat = targets.view(-1)
             loss = self.loss_fn(output_flat, targets_flat)
-            logger.info(f"Rank {self.rank}: loss: {loss:0.4f}")
+            
             # Backward pass starts here
             loss.backward()
 
@@ -673,12 +619,6 @@ def train(args):
         dist.all_reduce(test_tensor)
         logger.info(f"Rank {rank}: Successfully initialized distributed training group...")
 
-        if rank == 0:
-            # Data download and preparation
-            download_and_prepare_data(args=args)
-        
-        dist.barrier()
-        logger.info(f"Rank {rank}: all nodes successfully crossed the barrier..")
         # Create model with validated parameters
         model = ToyModel(
             rank=rank,
@@ -723,16 +663,16 @@ def train(args):
 
         total_params = sum(p.numel() for p in model.parameters())
         logger.info(f"Rank {rank}: Created model with {total_params:,} parameters")
-        
+
         start_time = time.time()
         for step in range(args.num_steps):
             step_start_time = time.time()
-            torch.cuda.empty_cache()
-            input_ids, targets = get_batch(seq_len=args.seq_len,
-                            device=device,
-                            batch_size=args.batch_size)
-            logger.info(f'Rank {rank}: length of the batch: {len(input_ids)}, shape:{input_ids.shape}')     
-                
+            # Generate dummy data
+            input_ids, targets = create_dummy_data(
+                args.batch_size, args.seq_len, args.vocab_size, device
+            )           
+
+            logger.info(f"Rank {rank}: dummy input shape: {input_ids.shape}")
             # Zero gradients
             optimizer.zero_grad()
             stats: dict = pipeline.schedule_step(
@@ -776,6 +716,7 @@ def train(args):
         except Exception as e:
             logger.warning(f"Error during cleanup: {e}")
 
+
 def main():
     parser = argparse.ArgumentParser(description='1f1b Pipeline Parallel Training')
 
@@ -784,19 +725,19 @@ def main():
     parser.add_argument('--gpus-per-node', type=int, default=8, help='GPUs per node')
 
     # Model arguments
-    parser.add_argument('--vocab-size', type=int, default=50304, help='Vocabulary size')
-    parser.add_argument('--d-model', type=int, default=512, help='Model dimension')
+    parser.add_argument('--vocab-size', type=int, default=1000, help='Vocabulary size')
+    parser.add_argument('--d-model', type=int, default=128, help='Model dimension')
     parser.add_argument('--n-layers', type=int, default=48, help='Number of transformer layers')
     parser.add_argument('--n-heads', type=int, default=8, help='Number of attention heads')
-    parser.add_argument('--d-ff', type=int, default=2048, help='Feed-forward dimension')
-    parser.add_argument('--seq-len', type=int, default=350, help='Sequence length')
+    parser.add_argument('--d-ff', type=int, default=512, help='Feed-forward dimension')
+    parser.add_argument('--seq-len', type=int, default=16, help='Sequence length')
 
     # Training arguments
     parser.add_argument('--batch-size', type=int, default=32, help='Global batch size')
     parser.add_argument('--micro-batches', type=int, default=4, help='Number of micro-batches per global batch')
     parser.add_argument('--gradient-accumulation-steps', type=int, default=1, help='Gradient accumulation steps')
     parser.add_argument('--learning-rate', type=float, default=2e-4, help='Learning rate')
-    parser.add_argument('--num-steps', type=int, default=600000, help='Number of training steps')
+    parser.add_argument('--num-steps', type=int, default=100, help='Number of training steps')
     parser.add_argument('--max-grad-norm', type=float, default=1.0, help='Maximum gradient norm for clipping')
 
     # NCCL arguments
@@ -805,10 +746,6 @@ def main():
     # Logging arguments
     parser.add_argument('--log-interval', type=int, default=10, help='Log every N steps')
     parser.add_argument('--save-interval', type=int, default=50, help='Save checkpoint every N steps')
-
-    # Data arguments
-    parser.add_argument('--data-url', type=str, default='https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt', help='shakespeare data url')
-    parser.add_argument('--output-file-name', type=str, default='output.txt', help='shakespeare data url')
 
     args = parser.parse_args()       
 
