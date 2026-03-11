@@ -16,7 +16,7 @@ import torch
 import torch.nn as nn
 import torch.distributed as dist 
 import torch.nn.functional as F
-from typing import Optional, Tuple, Any, Dict
+from typing import Optional, Tuple, Any, Dict, List
 from datetime import timedelta
 
 # Configure logging
@@ -462,7 +462,7 @@ class Pipeline1F1BTrainer:
             output_flat = output_tensor.view(-1, output_tensor.size(-1))
             targets_flat = targets.view(-1)
             loss = self.loss_fn(output_flat, targets_flat)
-            
+            logger.info(f"Rank {self.rank}: loss: {loss:0.4f}")
             # Backward pass starts here
             loss.backward()
 
