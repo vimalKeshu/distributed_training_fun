@@ -1,0 +1,28 @@
+tokenizer: "gpt2"
+seq_length: 2048
+batch_size: 8
+seed: 42
+prefetch_depth: 2
+max_retries: 3
+add_eos: true
+shuffle_files: true
+
+datasets:
+  - name: "fineweb-edu-10BT"
+    weight: 1.0
+    text_column: "text"
+    files:
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/000_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/001_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/002_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/003_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/004_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/005_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/006_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/007_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/008_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/009_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/010_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/011_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/012_00000.parquet"
+      - "${LOCAL_PATH}/users/vimal/dataset/fineweb-edu-10BT/013_00000.parquet"

@@ -1,0 +1,22 @@
+# Download data 
+import os
+from huggingface_hub import snapshot_download
+os.environ['HF_HUB_ENABLE_HF_TRANSFER'] = '1'
+snapshot_download(
+    "HuggingFaceFW/fineweb-edu",
+    repo_type="dataset",
+    local_dir="/tmp/scratch-space/dataset",
+    allow_patterns="sample/10BT/*.parquet",
+)
+--------------------------------------------------------------------------
+
+# Run with standard AdamW
+torchrun --nproc_per_node=8 train.py --config dataloader_config.yaml \
+    --steps 500 --optimizer adamw --dtype bf16 --run-name adamw_bf16_1b
+
+# Run with FlashAdamW
+torchrun --nproc_per_node=8 train.py --config dataloader_config.yaml \
+    --steps 500 --optimizer flash_adamw --master-weight-bits 24 --dtype bf16 --run-name flash_bf16_master_weight_24_1b
+
+# Compare results
+python compare_runs.py --runs adamw_bf16 flash_bf16_master_weight_24

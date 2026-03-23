@@ -1,0 +1,127 @@
+torchrun --nproc_per_node=8 train.py --config dataloader_config.yaml --steps 500 --optimizer adamw --dtype bf16 --run-name adamw_bf16
+result:
+step     1 | loss 10.9989 | ppl 59810.17 | 567 tok/s | mem 2,272 MB | 231.212s
+step    10 | loss 9.7958 | ppl 17957.93 | 161,074 tok/s | mem 2,272 MB | 0.814s
+step    20 | loss 8.8867 | ppl  7235.16 | 156,548 tok/s | mem 2,272 MB | 0.837s
+step    30 | loss 8.3891 | ppl  4399.05 | 164,668 tok/s | mem 2,272 MB | 0.796s
+step    40 | loss 8.0164 | ppl  3030.38 | 154,565 tok/s | mem 2,272 MB | 0.848s
+step    50 | loss 7.8778 | ppl  2638.04 | 84,119 tok/s | mem 2,272 MB | 1.558s
+step    60 | loss 7.8229 | ppl  2497.06 | 162,808 tok/s | mem 2,272 MB | 0.805s
+step    70 | loss 7.5127 | ppl  1831.07 | 171,594 tok/s | mem 2,272 MB | 0.764s
+step    80 | loss 7.4404 | ppl  1703.40 | 172,337 tok/s | mem 2,272 MB | 0.761s
+step    90 | loss 7.3638 | ppl  1577.81 | 172,436 tok/s | mem 2,272 MB | 0.760s
+step   100 | loss 7.3969 | ppl  1630.90 | 167,998 tok/s | mem 2,272 MB | 0.780s
+step   110 | loss 7.3464 | ppl  1550.53 | 168,468 tok/s | mem 2,272 MB | 0.778s
+step   120 | loss 7.1234 | ppl  1240.71 | 170,850 tok/s | mem 2,272 MB | 0.767s
+step   130 | loss 7.5038 | ppl  1815.01 | 172,487 tok/s | mem 2,272 MB | 0.760s
+step   140 | loss 7.1942 | ppl  1331.63 | 165,797 tok/s | mem 2,272 MB | 0.791s
+step   150 | loss 7.0485 | ppl  1151.17 | 166,577 tok/s | mem 2,272 MB | 0.787s
+step   160 | loss 7.1056 | ppl  1218.73 | 173,025 tok/s | mem 2,272 MB | 0.758s
+step   170 | loss 7.1590 | ppl  1285.58 | 172,625 tok/s | mem 2,272 MB | 0.759s
+step   180 | loss 7.3004 | ppl  1480.91 | 172,193 tok/s | mem 2,272 MB | 0.761s
+step   190 | loss 7.3032 | ppl  1485.00 | 163,302 tok/s | mem 2,272 MB | 0.803s
+step   200 | loss 7.1201 | ppl  1236.60 | 171,350 tok/s | mem 2,272 MB | 0.765s
+step   210 | loss 6.8564 | ppl   949.96 | 167,140 tok/s | mem 2,272 MB | 0.784s
+step   220 | loss 7.0652 | ppl  1170.46 | 172,462 tok/s | mem 2,272 MB | 0.760s
+step   230 | loss 6.9170 | ppl  1009.31 | 172,710 tok/s | mem 2,272 MB | 0.759s
+step   240 | loss 6.9309 | ppl  1023.39 | 168,602 tok/s | mem 2,272 MB | 0.777s
+step   250 | loss 7.1441 | ppl  1266.64 | 166,123 tok/s | mem 2,272 MB | 0.789s
+step   260 | loss 6.8497 | ppl   943.58 | 173,581 tok/s | mem 2,272 MB | 0.755s
+step   270 | loss 6.6710 | ppl   789.21 | 169,134 tok/s | mem 2,272 MB | 0.775s
+step   280 | loss 6.9040 | ppl   996.28 | 176,540 tok/s | mem 2,272 MB | 0.742s
+step   290 | loss 6.7272 | ppl   834.80 | 170,167 tok/s | mem 2,272 MB | 0.770s
+step   300 | loss 6.8440 | ppl   938.25 | 170,080 tok/s | mem 2,272 MB | 0.771s
+step   310 | loss 7.1444 | ppl  1267.03 | 169,096 tok/s | mem 2,272 MB | 0.775s
+step   320 | loss 7.0655 | ppl  1170.92 | 175,349 tok/s | mem 2,272 MB | 0.747s
+step   330 | loss 6.8776 | ppl   970.33 | 178,866 tok/s | mem 2,272 MB | 0.733s
+step   340 | loss 6.6975 | ppl   810.35 | 178,712 tok/s | mem 2,272 MB | 0.733s
+step   350 | loss 7.3125 | ppl  1498.96 | 175,418 tok/s | mem 2,272 MB | 0.747s
+step   360 | loss 6.6226 | ppl   751.93 | 179,357 tok/s | mem 2,272 MB | 0.731s
+step   370 | loss 6.7533 | ppl   856.92 | 180,842 tok/s | mem 2,272 MB | 0.725s
+step   380 | loss 6.8080 | ppl   905.04 | 177,547 tok/s | mem 2,272 MB | 0.738s
+step   390 | loss 6.6825 | ppl   798.30 | 178,703 tok/s | mem 2,272 MB | 0.733s
+step   400 | loss 6.7362 | ppl   842.33 | 177,467 tok/s | mem 2,272 MB | 0.739s
+step   410 | loss 6.6104 | ppl   742.78 | 182,017 tok/s | mem 2,272 MB | 0.720s
+step   420 | loss 6.7385 | ppl   844.26 | 181,480 tok/s | mem 2,272 MB | 0.722s
+step   430 | loss 6.6184 | ppl   748.71 | 182,531 tok/s | mem 2,272 MB | 0.718s
+step   440 | loss 6.9476 | ppl  1040.64 | 174,534 tok/s | mem 2,272 MB | 0.751s
+step   450 | loss 6.9460 | ppl  1039.02 | 172,268 tok/s | mem 2,272 MB | 0.761s
+step   460 | loss 6.9910 | ppl  1086.77 | 103,138 tok/s | mem 2,272 MB | 1.271s
+step   470 | loss 6.7158 | ppl   825.36 | 187,025 tok/s | mem 2,272 MB | 0.701s
+step   480 | loss 6.8121 | ppl   908.79 | 187,338 tok/s | mem 2,272 MB | 0.700s
+step   490 | loss 6.6552 | ppl   776.85 | 179,813 tok/s | mem 2,272 MB | 0.729s
+step   500 | loss 6.5639 | ppl   709.05 | 188,272 tok/s | mem 2,272 MB | 0.696s
+
+torchrun --nproc_per_node=8 train.py --config dataloader_config.yaml     --steps 500 --optimizer flash_adamw --master-weight-bits 24 --dtype bf16 --run-name flash_bf16_master_weight_24
+result:
+step     1 | loss 10.9375 | ppl 56246.55 | 549 tok/s | mem 1,969 MB | 238.925s
+step    10 | loss 9.7500 | ppl 17154.23 | 171,198 tok/s | mem 1,968 MB | 0.766s
+step    20 | loss 8.8750 | ppl  7150.95 | 170,639 tok/s | mem 1,968 MB | 0.768s
+step    30 | loss 8.3750 | ppl  4337.27 | 167,320 tok/s | mem 1,968 MB | 0.783s
+step    40 | loss 8.0000 | ppl  2980.96 | 165,807 tok/s | mem 1,968 MB | 0.791s
+step    50 | loss 7.8750 | ppl  2630.69 | 161,227 tok/s | mem 1,968 MB | 0.813s
+step    60 | loss 7.8125 | ppl  2471.30 | 162,419 tok/s | mem 1,968 MB | 0.807s
+step    70 | loss 7.5000 | ppl  1808.04 | 167,452 tok/s | mem 1,968 MB | 0.783s
+step    80 | loss 7.4375 | ppl  1698.50 | 165,921 tok/s | mem 1,968 MB | 0.790s
+step    90 | loss 7.3438 | ppl  1546.50 | 166,450 tok/s | mem 1,968 MB | 0.787s
+step   100 | loss 7.3750 | ppl  1595.59 | 174,115 tok/s | mem 1,968 MB | 0.753s
+step   110 | loss 7.3438 | ppl  1546.50 | 166,252 tok/s | mem 1,968 MB | 0.788s
+step   120 | loss 7.1250 | ppl  1242.65 | 163,153 tok/s | mem 1,968 MB | 0.803s
+step   130 | loss 7.5000 | ppl  1808.04 | 168,647 tok/s | mem 1,968 MB | 0.777s
+step   140 | loss 7.1875 | ppl  1322.79 | 175,364 tok/s | mem 1,968 MB | 0.747s
+step   150 | loss 7.0312 | ppl  1131.44 | 169,081 tok/s | mem 1,968 MB | 0.775s
+step   160 | loss 7.0938 | ppl  1204.42 | 170,321 tok/s | mem 1,968 MB | 0.770s
+step   170 | loss 7.1250 | ppl  1242.65 | 159,897 tok/s | mem 1,968 MB | 0.820s
+step   180 | loss 7.2812 | ppl  1452.80 | 166,350 tok/s | mem 1,968 MB | 0.788s
+step   190 | loss 7.2812 | ppl  1452.80 | 177,338 tok/s | mem 1,968 MB | 0.739s
+step   200 | loss 7.0938 | ppl  1204.42 | 175,764 tok/s | mem 1,968 MB | 0.746s
+step   210 | loss 6.8125 | ppl   909.14 | 168,573 tok/s | mem 1,968 MB | 0.778s
+step   220 | loss 7.0312 | ppl  1131.44 | 177,732 tok/s | mem 1,968 MB | 0.737s
+step   230 | loss 6.8750 | ppl   967.78 | 172,300 tok/s | mem 1,968 MB | 0.761s
+step   240 | loss 6.9062 | ppl   998.50 | 171,127 tok/s | mem 1,968 MB | 0.766s
+step   250 | loss 7.0938 | ppl  1204.42 | 170,257 tok/s | mem 1,968 MB | 0.770s
+step   260 | loss 6.8125 | ppl   909.14 | 179,180 tok/s | mem 1,968 MB | 0.732s
+step   270 | loss 6.6250 | ppl   753.70 | 177,945 tok/s | mem 1,968 MB | 0.737s
+step   280 | loss 6.8438 | ppl   938.00 | 178,218 tok/s | mem 1,968 MB | 0.735s
+step   290 | loss 6.6562 | ppl   777.63 | 173,804 tok/s | mem 1,968 MB | 0.754s
+step   300 | loss 6.7812 | ppl   881.17 | 171,048 tok/s | mem 1,968 MB | 0.766s
+step   310 | loss 7.0625 | ppl  1167.36 | 172,760 tok/s | mem 1,968 MB | 0.759s
+step   320 | loss 7.0000 | ppl  1096.63 | 171,586 tok/s | mem 1,968 MB | 0.764s
+step   330 | loss 6.7812 | ppl   881.17 | 179,581 tok/s | mem 1,968 MB | 0.730s
+step   340 | loss 6.5938 | ppl   730.52 | 174,588 tok/s | mem 1,968 MB | 0.751s
+step   350 | loss 7.1875 | ppl  1322.79 | 180,346 tok/s | mem 1,968 MB | 0.727s
+step   360 | loss 6.5312 | ppl   686.26 | 177,222 tok/s | mem 1,968 MB | 0.740s
+step   370 | loss 6.6562 | ppl   777.63 | 180,601 tok/s | mem 1,968 MB | 0.726s
+step   380 | loss 6.6875 | ppl   802.31 | 170,726 tok/s | mem 1,968 MB | 0.768s
+step   390 | loss 6.5625 | ppl   708.04 | 180,652 tok/s | mem 1,968 MB | 0.726s
+step   400 | loss 6.6562 | ppl   777.63 | 181,546 tok/s | mem 1,968 MB | 0.722s
+step   410 | loss 6.5000 | ppl   665.14 | 182,745 tok/s | mem 1,968 MB | 0.717s
+step   420 | loss 6.6250 | ppl   753.70 | 175,597 tok/s | mem 1,968 MB | 0.746s
+step   430 | loss 6.5000 | ppl   665.14 | 101,552 tok/s | mem 1,968 MB | 1.291s
+step   440 | loss 6.8125 | ppl   909.14 | 172,955 tok/s | mem 1,968 MB | 0.758s
+step   450 | loss 6.8125 | ppl   909.14 | 178,776 tok/s | mem 1,968 MB | 0.733s
+step   460 | loss 6.8438 | ppl   938.00 | 182,777 tok/s | mem 1,968 MB | 0.717s
+step   470 | loss 6.5938 | ppl   730.52 | 183,618 tok/s | mem 1,968 MB | 0.714s
+step   480 | loss 6.6875 | ppl   802.31 | 178,301 tok/s | mem 1,968 MB | 0.735s
+step   490 | loss 6.5625 | ppl   708.04 | 179,555 tok/s | mem 1,968 MB | 0.730s
+step   500 | loss 6.4375 | ppl   624.84 | 184,429 tok/s | mem 1,968 MB | 0.711s
+
+
+python compare_runs.py --runs adamw_bf16 flash_bf16_master_weight_24
+result:
+-------------------------------------------------------------------------
+Metric                                   adamw           flash_adamw
+-------------------------------------------------------------------------
+Final loss                              6.5639            6.4375
+Final perplexity                        709.05            624.84
+Avg step time (s)                       1.2474            1.2500
+Avg tokens/sec                         169,166           171,120
+Peak GPU mem (MB)                        2,272             1,969
+Total steps                                500               500
+-------------------------------------------------------------------------
+Delta (B vs A)              
+  Loss diff                            -0.1264
+  Perplexity diff                       -84.21
+  Step time                              +0.2%
+  GPU memory                            -13.3%
+-------------------------------------------------------------------------

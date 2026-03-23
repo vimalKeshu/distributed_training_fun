@@ -1,0 +1,138 @@
+torchrun --nproc_per_node=8 train.py --config dataloader_config.yaml     --steps 500 --optimizer adamw --dtype bf16 --run-name adamw_bf16_1b
+result:
+
+step     1 | loss 11.2584 | ppl 77529.76 | 597 tok/s | mem 28,137 MB | 219.480s
+step    10 | loss 8.7055 | ppl  6036.27 | 107,644 tok/s | mem 28,135 MB | 1.218s
+step    20 | loss 7.6410 | ppl  2081.85 | 99,577 tok/s | mem 28,135 MB | 1.316s
+step    30 | loss 7.8055 | ppl  2454.02 | 43,167 tok/s | mem 28,135 MB | 3.036s
+step    40 | loss 7.8088 | ppl  2462.15 | 66,310 tok/s | mem 28,135 MB | 1.977s
+step    50 | loss 7.8839 | ppl  2654.08 | 101,886 tok/s | mem 28,135 MB | 1.286s
+step    60 | loss 7.9281 | ppl  2774.27 | 88,874 tok/s | mem 28,135 MB | 1.475s
+step    70 | loss 7.6595 | ppl  2120.68 | 104,126 tok/s | mem 28,135 MB | 1.259s
+step    80 | loss 7.6057 | ppl  2009.54 | 107,629 tok/s | mem 28,135 MB | 1.218s
+step    90 | loss 7.5135 | ppl  1832.60 | 68,991 tok/s | mem 28,135 MB | 1.900s
+step   100 | loss 7.5661 | ppl  1931.50 | 107,531 tok/s | mem 28,135 MB | 1.219s
+step   110 | loss 7.4184 | ppl  1666.44 | 105,889 tok/s | mem 28,135 MB | 1.238s
+step   120 | loss 7.0915 | ppl  1201.66 | 108,439 tok/s | mem 28,135 MB | 1.209s
+step   130 | loss 7.3359 | ppl  1534.43 | 104,082 tok/s | mem 28,135 MB | 1.259s
+step   140 | loss 6.9752 | ppl  1069.72 | 108,521 tok/s | mem 28,135 MB | 1.208s
+step   150 | loss 6.7143 | ppl   824.13 | 105,293 tok/s | mem 28,135 MB | 1.245s
+step   160 | loss 6.7512 | ppl   855.06 | 108,630 tok/s | mem 28,135 MB | 1.207s
+step   170 | loss 6.7683 | ppl   869.83 | 108,994 tok/s | mem 28,135 MB | 1.203s
+step   180 | loss 6.8712 | ppl   964.14 | 108,742 tok/s | mem 28,135 MB | 1.205s
+step   190 | loss 6.8335 | ppl   928.41 | 108,689 tok/s | mem 28,135 MB | 1.206s
+step   200 | loss 6.6470 | ppl   770.50 | 104,734 tok/s | mem 28,135 MB | 1.251s
+step   210 | loss 6.4204 | ppl   614.23 | 109,153 tok/s | mem 28,135 MB | 1.201s
+step   220 | loss 6.5623 | ppl   707.90 | 109,088 tok/s | mem 28,135 MB | 1.202s
+step   230 | loss 6.3621 | ppl   579.44 | 109,474 tok/s | mem 28,135 MB | 1.197s
+step   240 | loss 6.3547 | ppl   575.20 | 79,307 tok/s | mem 28,135 MB | 1.653s
+step   250 | loss 6.6082 | ppl   741.18 | 106,915 tok/s | mem 28,135 MB | 1.226s
+step   260 | loss 6.2772 | ppl   532.30 | 109,429 tok/s | mem 28,135 MB | 1.198s
+step   270 | loss 6.0901 | ppl   441.47 | 110,390 tok/s | mem 28,135 MB | 1.187s
+step   280 | loss 6.3100 | ppl   550.05 | 110,014 tok/s | mem 28,135 MB | 1.191s
+step   290 | loss 6.0646 | ppl   430.37 | 109,848 tok/s | mem 28,135 MB | 1.193s
+step   300 | loss 6.1803 | ppl   483.16 | 110,222 tok/s | mem 28,135 MB | 1.189s
+step   310 | loss 6.4956 | ppl   662.25 | 110,274 tok/s | mem 28,135 MB | 1.189s
+step   320 | loss 6.3432 | ppl   568.61 | 110,570 tok/s | mem 28,135 MB | 1.185s
+step   330 | loss 6.1813 | ppl   483.64 | 110,354 tok/s | mem 28,135 MB | 1.188s
+step   340 | loss 5.8630 | ppl   351.78 | 110,767 tok/s | mem 28,135 MB | 1.183s
+step   350 | loss 6.5472 | ppl   697.26 | 108,162 tok/s | mem 28,135 MB | 1.212s
+step   360 | loss 5.8301 | ppl   340.38 | 106,227 tok/s | mem 28,135 MB | 1.234s
+step   370 | loss 5.8981 | ppl   364.36 | 110,352 tok/s | mem 28,135 MB | 1.188s
+step   380 | loss 5.8497 | ppl   347.13 | 110,359 tok/s | mem 28,135 MB | 1.188s
+step   390 | loss 5.6758 | ppl   291.73 | 106,070 tok/s | mem 28,135 MB | 1.236s
+step   400 | loss 5.8717 | ppl   354.86 | 110,756 tok/s | mem 28,135 MB | 1.183s
+step   410 | loss 5.7419 | ppl   311.64 | 80,202 tok/s | mem 28,135 MB | 1.634s
+step   420 | loss 5.7352 | ppl   309.58 | 110,753 tok/s | mem 28,135 MB | 1.183s
+step   430 | loss 5.6660 | ppl   288.89 | 111,919 tok/s | mem 28,135 MB | 1.171s
+step   440 | loss 5.9972 | ppl   402.31 | 111,382 tok/s | mem 28,135 MB | 1.177s
+step   450 | loss 5.8243 | ppl   338.44 | 111,408 tok/s | mem 28,135 MB | 1.177s
+step   460 | loss 5.9406 | ppl   380.17 | 109,984 tok/s | mem 28,135 MB | 1.192s
+step   470 | loss 5.6229 | ppl   276.69 | 111,865 tok/s | mem 28,135 MB | 1.172s
+step   480 | loss 5.7778 | ppl   323.05 | 111,532 tok/s | mem 28,135 MB | 1.175s
+step   490 | loss 5.6292 | ppl   278.43 | 112,298 tok/s | mem 28,135 MB | 1.167s
+step   500 | loss 5.5773 | ppl   264.36 | 109,526 tok/s | mem 28,135 MB | 1.197s
+2026-03-23 13:30:10,744 Metrics saved → runs/adamw_bf16_1b.json
+
+Done. Dataloader metrics: {'epoch': 0, 'total_batches': 500, 'total_tokens': 8192000, 'buffer_len': 85821379, 'queue_size': 1, 'thread_alive': False}
+
+
+
+torchrun --nproc_per_node=8 train.py --config dataloader_config.yaml     --steps 500 --optimizer flash_adamw --master-weight-bits 24 --dtype bf16 --run-name flash_bf16_master_weight_24_1b
+result:
+
+step     1 | loss 11.2500 | ppl 76879.92 | 570 tok/s | mem 13,798 MB | 230.068s
+step    10 | loss 8.3750 | ppl  4337.27 | 114,952 tok/s | mem 13,800 MB | 1.140s
+step    20 | loss 7.6250 | ppl  2048.78 | 112,800 tok/s | mem 13,800 MB | 1.162s
+step    30 | loss 7.8125 | ppl  2471.30 | 108,096 tok/s | mem 13,800 MB | 1.213s
+step    40 | loss 7.7812 | ppl  2395.27 | 116,403 tok/s | mem 13,800 MB | 1.126s
+step    50 | loss 7.8125 | ppl  2471.30 | 112,837 tok/s | mem 13,800 MB | 1.162s
+step    60 | loss 7.8125 | ppl  2471.30 | 111,951 tok/s | mem 13,800 MB | 1.171s
+step    70 | loss 7.4375 | ppl  1698.50 | 111,704 tok/s | mem 13,800 MB | 1.173s
+step    80 | loss 7.3438 | ppl  1546.50 | 115,674 tok/s | mem 13,800 MB | 1.133s
+step    90 | loss 7.1562 | ppl  1282.09 | 116,466 tok/s | mem 13,800 MB | 1.125s
+step   100 | loss 7.1250 | ppl  1242.65 | 116,967 tok/s | mem 13,800 MB | 1.121s
+step   110 | loss 6.9688 | ppl  1062.89 | 112,973 tok/s | mem 13,800 MB | 1.160s
+step   120 | loss 6.7188 | ppl   827.78 | 114,077 tok/s | mem 13,800 MB | 1.149s
+step   130 | loss 6.9375 | ppl  1030.19 | 113,274 tok/s | mem 13,800 MB | 1.157s
+step   140 | loss 6.7188 | ppl   827.78 | 117,019 tok/s | mem 13,800 MB | 1.120s
+step   150 | loss 6.4688 | ppl   644.68 | 116,206 tok/s | mem 13,800 MB | 1.128s
+step   160 | loss 6.5312 | ppl   686.26 | 117,687 tok/s | mem 13,800 MB | 1.114s
+step   170 | loss 6.5938 | ppl   730.52 | 115,004 tok/s | mem 13,800 MB | 1.140s
+step   180 | loss 6.6875 | ppl   802.31 | 115,361 tok/s | mem 13,800 MB | 1.136s
+step   190 | loss 6.6562 | ppl   777.63 | 115,594 tok/s | mem 13,800 MB | 1.134s
+step   200 | loss 6.4688 | ppl   644.68 | 117,379 tok/s | mem 13,800 MB | 1.117s
+step   210 | loss 6.2188 | ppl   502.08 | 115,410 tok/s | mem 13,800 MB | 1.136s
+step   220 | loss 6.3750 | ppl   586.99 | 114,292 tok/s | mem 13,800 MB | 1.147s
+step   230 | loss 6.2188 | ppl   502.08 | 116,399 tok/s | mem 13,800 MB | 1.126s
+step   240 | loss 6.1875 | ppl   486.63 | 119,034 tok/s | mem 13,800 MB | 1.101s
+step   250 | loss 6.4375 | ppl   624.84 | 116,436 tok/s | mem 13,800 MB | 1.126s
+step   260 | loss 6.1250 | ppl   457.14 | 118,742 tok/s | mem 13,800 MB | 1.104s
+step   270 | loss 5.8750 | ppl   356.02 | 119,143 tok/s | mem 13,800 MB | 1.100s
+step   280 | loss 6.1562 | ppl   471.66 | 118,755 tok/s | mem 13,800 MB | 1.104s
+step   290 | loss 5.9062 | ppl   367.33 | 80,171 tok/s | mem 13,800 MB | 1.635s
+step   300 | loss 6.0000 | ppl   403.43 | 117,090 tok/s | mem 13,800 MB | 1.119s
+step   310 | loss 6.3438 | ppl   568.93 | 120,025 tok/s | mem 13,800 MB | 1.092s
+step   320 | loss 6.1562 | ppl   471.66 | 119,695 tok/s | mem 13,800 MB | 1.095s
+step   330 | loss 6.0000 | ppl   403.43 | 117,895 tok/s | mem 13,800 MB | 1.112s
+step   340 | loss 5.6562 | ppl   286.07 | 115,511 tok/s | mem 13,800 MB | 1.135s
+step   350 | loss 6.3438 | ppl   568.93 | 115,412 tok/s | mem 13,800 MB | 1.136s
+step   360 | loss 5.6250 | ppl   277.27 | 120,765 tok/s | mem 13,800 MB | 1.085s
+step   370 | loss 5.6875 | ppl   295.15 | 118,440 tok/s | mem 13,800 MB | 1.107s
+step   380 | loss 5.5938 | ppl   268.74 | 116,409 tok/s | mem 13,800 MB | 1.126s
+step   390 | loss 5.4688 | ppl   237.16 | 120,971 tok/s | mem 13,800 MB | 1.084s
+step   400 | loss 5.6562 | ppl   286.07 | 117,683 tok/s | mem 13,800 MB | 1.114s
+step   410 | loss 5.5000 | ppl   244.69 | 120,822 tok/s | mem 13,800 MB | 1.085s
+step   420 | loss 5.5000 | ppl   244.69 | 115,400 tok/s | mem 13,800 MB | 1.136s
+step   430 | loss 5.4375 | ppl   229.87 | 120,859 tok/s | mem 13,800 MB | 1.085s
+step   440 | loss 5.7188 | ppl   304.52 | 117,733 tok/s | mem 13,800 MB | 1.113s
+step   450 | loss 5.4688 | ppl   237.16 | 118,344 tok/s | mem 13,800 MB | 1.108s
+step   460 | loss 5.7188 | ppl   304.52 | 83,790 tok/s | mem 13,800 MB | 1.564s
+step   470 | loss 5.3750 | ppl   215.94 | 121,812 tok/s | mem 13,800 MB | 1.076s
+step   480 | loss 5.5312 | ppl   252.46 | 117,328 tok/s | mem 13,800 MB | 1.117s
+step   490 | loss 5.3750 | ppl   215.94 | 122,197 tok/s | mem 13,800 MB | 1.073s
+step   500 | loss 5.3438 | ppl   209.30 | 119,553 tok/s | mem 13,800 MB | 1.096s
+2026-03-23 13:46:28,582 Metrics saved → runs/flash_bf16_master_weight_24_1b.json
+
+Done. Dataloader metrics: {'epoch': 0, 'total_batches': 500, 'total_tokens': 8192000, 'buffer_len': 85821379, 'queue_size': 1, 'thread_alive': False}
+
+
+
+python compare_runs.py --runs adamw_bf16_1b flash_bf16_master_weight_24_1b
+result:
+----------------------------------------------------------------------------
+Metric                           adamw_bf16_1bflash_bf16_master_weight_24_1b
+----------------------------------------------------------------------------
+Final loss                              5.5773            5.3438
+Final perplexity                        264.36            209.30
+Avg step time (s)                       1.7002            1.6216
+Avg tokens/sec                         104,890           113,721
+Peak GPU mem (MB)                       28,137            13,801
+Total steps                                500               500
+----------------------------------------------------------------------------
+Delta (B vs A)              
+  Loss diff                            -0.2335
+  Perplexity diff                       -55.06
+  Step time                              -4.6%
+  GPU memory                            -51.0%
+----------------------------------------------------------------------------

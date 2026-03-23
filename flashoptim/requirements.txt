@@ -3,3 +3,4 @@ pyarrow
 pyyaml
 transformers
 pandas
+flashoptim
