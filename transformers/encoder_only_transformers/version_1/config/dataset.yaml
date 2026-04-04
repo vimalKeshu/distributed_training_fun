@@ -1,0 +1,5 @@
+dataset:
+  name: "fancyzhx/ag_news"
+  cache_dir: "./data"
+  classes: "World,Sports,Business,SciTech"
+  subset_size: null

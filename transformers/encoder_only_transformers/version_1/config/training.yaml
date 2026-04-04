@@ -1,0 +1,6 @@
+training:
+  batch_size: 32
+  epochs: 10
+  lr: 5e-5
+  checkpoint_dir_name: "checkpoints"
+  checkpoint_interval: 2

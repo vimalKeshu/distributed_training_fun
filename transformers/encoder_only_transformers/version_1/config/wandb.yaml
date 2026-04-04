@@ -1,0 +1,2 @@
+wandb:
+  project_name: "news_classifier"

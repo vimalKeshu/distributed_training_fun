@@ -1,0 +1,24 @@
+defaults:
+  - model
+  - dataset
+  - training
+  - wandb
+
+mode: "test"
+
+training:
+  batch_size: 32
+  epochs: 1
+  lr: 3e-4
+  checkpoint_interval: 1
+  checkpoint_path: "./checkpoints"
+
+eval:
+  batch_size: 1
+
+dataset:
+  subset_size: 50
+
+wandb:
+  project_name: "news_classifier_test"
+#   log_weights: false

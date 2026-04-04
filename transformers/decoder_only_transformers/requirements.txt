@@ -1,0 +1,12 @@
+transformers>=4.34
+numpy
+tiktoken
+torch
+torchdata
+accelerate
+evaluate
+rouge_score
+loralib
+peft
+datasets
+torchmetrics
