@@ -1,0 +1,41 @@
+{
+  "run_name": "instruct_30m_rope",
+  "seed": 1337,
+  "data": {
+    "tokenizer_path": "data/tinystories/tokenizer.json",
+    "train_text_path": "data/tinystories_instruct/full/TinyStories-Instruct-train.txt",
+    "valid_text_path": "data/tinystories_instruct/full/TinyStories-Instruct-valid.txt",
+    "cache_dir": "instruction-tuning/outputs/cache/tinystories_instruct_bpe4k",
+    "require_story_marker": true,
+    "max_train_tokens": 50000000,
+    "overwrite_cache": false
+  },
+  "model": {
+    "block_size": 512,
+    "dropout": 0.1
+  },
+  "training": {
+    "init_from": "pre-training/outputs/assignment_01_30m_bpe_muon/best.pt",
+    "out_dir": "instruction-tuning/outputs/instruct_30m_rope",
+    "device": "auto",
+    "dtype": "float32",
+    "compile": true,
+    "optimizer": "muon",
+    "muon_lr": 0.003,
+    "muon_momentum": 0.95,
+    "batch_size": 16,
+    "gradient_accumulation_steps": 16,
+    "max_steps": 1400,
+    "learning_rate": 0.00005,
+    "min_lr": 0.000005,
+    "warmup_steps": 100,
+    "lr_decay": true,
+    "weight_decay": 0.1,
+    "betas": [0.9, 0.95],
+    "grad_clip": 1.0,
+    "log_interval": 10,
+    "eval_interval": 100,
+    "eval_iters": 50,
+    "save_interval": 500
+  }
+}

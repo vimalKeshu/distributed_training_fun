@@ -1,0 +1,44 @@
+{
+  "run_name": "assignment_01_debug",
+  "seed": 1337,
+  "data": {
+    "tokenizer_path": "data/tinystories/tokenizer.json",
+    "train_text_path": "data/tinystories/full/TinyStories-train.txt",
+    "valid_text_path": "data/tinystories/full/TinyStories-valid.txt",
+    "cache_dir": "pre-training/outputs/cache/tinystories_bpe4k",
+    "overwrite_cache": false
+  },
+  "model": {
+    "vocab_size": 4096,
+    "block_size": 256,
+    "n_layer": 4,
+    "n_head": 4,
+    "n_embd": 192,
+    "dropout": 0.0,
+    "position_encoding": "rope",
+    "sliding_window": null,
+    "qk_norm": true,
+    "grad_checkpoint": false
+  },
+  "training": {
+    "out_dir": "pre-training/outputs/assignment_01_debug",
+    "device": "auto",
+    "dtype": "float32",
+    "compile": false,
+    "optimizer": "adamw",
+    "batch_size": 8,
+    "gradient_accumulation_steps": 8,
+    "max_steps": 500,
+    "learning_rate": 0.0006,
+    "min_lr": 0.00006,
+    "warmup_steps": 25,
+    "lr_decay": true,
+    "weight_decay": 0.1,
+    "betas": [0.9, 0.95],
+    "grad_clip": 1.0,
+    "log_interval": 10,
+    "eval_interval": 100,
+    "eval_iters": 20,
+    "save_interval": 250
+  }
+}

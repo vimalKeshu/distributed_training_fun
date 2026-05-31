@@ -1,0 +1,46 @@
+{
+  "run_name": "distill_30m_debug",
+  "seed": 1337,
+  "data": {
+    "tokenizer_path": "data/tinystories/tokenizer.json",
+    "train_text_path": "data/tinystories_instruct/full/TinyStories-Instruct-valid.txt",
+    "valid_text_path": "data/tinystories_instruct/full/TinyStories-Instruct-valid.txt",
+    "cache_dir": "on-policy-distillation/outputs/cache/prompts_bpe4k_debug",
+    "max_train_tokens": 200000,
+    "overwrite_cache": false
+  },
+  "model": {
+    "dropout": 0.0
+  },
+  "distill": {
+    "teacher_from": "instruction-tuning/outputs/instruct_30m_rope/best.pt",
+    "student_init_from": "pre-training/outputs/assignment_01_30m_bpe_muon/best.pt",
+    "kl_type": "reverse",
+    "kl_temperature": 1.0,
+    "rollout_temperature": 1.0,
+    "rollout_top_k": null,
+    "max_new_tokens": 64,
+    "min_response_tokens": 32
+  },
+  "training": {
+    "out_dir": "on-policy-distillation/outputs/distill_30m_debug",
+    "device": "auto",
+    "optimizer": "muon",
+    "muon_lr": 0.003,
+    "muon_momentum": 0.95,
+    "batch_size": 4,
+    "gradient_accumulation_steps": 1,
+    "max_steps": 20,
+    "learning_rate": 0.00005,
+    "min_lr": 0.000005,
+    "warmup_steps": 5,
+    "lr_decay": true,
+    "weight_decay": 0.1,
+    "betas": [0.9, 0.95],
+    "grad_clip": 1.0,
+    "log_interval": 1,
+    "eval_interval": 10,
+    "eval_iters": 2,
+    "save_interval": 100
+  }
+}
